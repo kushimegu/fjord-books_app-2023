@@ -1,21 +1,17 @@
 ---
 en:
-  Books: Books
-  New book: New book
-  Title: Title
-  Memo: Memo
-  Author: Author
-  Picture: Picture
-  Edit this book: Edit this book
-  Back to books: Back to books
-  Destroy this book: Destroy this book
-  Show this book: Show this book
-  Editing book: Editing book
-  New book: New book
+  views:
+    books: Books
+    new: New book
+    edit: Edit this book
+    back: Back to books
+    destroy: Destroy this book
+    show: Show this book
+    editing: Editing book
   notices:
-    created: Book was successfully created.
-    updated: Book was successfully updated.
-    destroyed: Book was successfully destroyed.
+    created: "%{item} was successfully created."
+    updated: "%{item} was successfully updated."
+    destroyed: "%{item} was successfully destroyed."
   activerecord:
     errors:
       messages:

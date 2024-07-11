@@ -1,21 +1,17 @@
 ---
 ja:
-  Books: 本の一覧
-  New book: 本を追加する
-  Title: タイトル
-  Memo: メモ
-  Author: 著者
-  Picture: 写真
-  Edit this book: 編集する
-  Back to books: 一覧に戻る
-  Destroy this book: 削除する
-  Show this book: 本の詳細
-  Editing book: 本の編集
-  New book: 本を追加
+  views:
+    books: 本の一覧
+    new: 本を追加する
+    edit: 編集する
+    back: 一覧に戻る
+    destroy: 削除する
+    show: 本の詳細
+    editing: 本を編集する
   notices:
-    created: 本を追加しました。
-    updated: 本を編集しました。
-    destroyed: 本を削除しました。
+    created: "%{item}を追加しました。"
+    updated: "%{item}を編集しました。"
+    destroyed: "%{item}を削除しました。"
   activerecord:
     errors:
       messages:
