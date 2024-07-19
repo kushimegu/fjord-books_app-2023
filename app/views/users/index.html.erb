@@ -1,0 +1,7 @@
+<% @users.each do |user| %>
+  <p>
+    <%= user.id %>
+    <%= link_to "Show this user", user %>
+  </p>
+<% end %>
+<%= paginate @users %>
