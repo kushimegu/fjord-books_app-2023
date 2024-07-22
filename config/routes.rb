@@ -4,5 +4,5 @@ Rails.application.routes.draw do
     sessions: 'users/sessions'
   }
   resources :books
-  resources :users
+  resources :users, only: [:show, :index]
 end

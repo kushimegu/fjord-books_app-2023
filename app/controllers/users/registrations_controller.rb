@@ -8,7 +8,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def after_update_path_for(resource)
-    current_user
+    user_path(resource)
   end
 
   # GET /resource/sign_up
@@ -16,6 +16,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = User.new
   end
 
+  protected
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
   # POST /resource
   # def create
   #   super
