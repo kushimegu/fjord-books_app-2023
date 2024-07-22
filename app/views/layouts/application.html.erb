@@ -13,12 +13,14 @@
   <body class="<%= params[:action] %>">
     <header>
       <h1>BooksApp</h1>
-      <ul>
-        <li><%= link_to 'Books', books_path %></li>
-        <li><%= link_to 'Users', users_path %></li>
-        <li><%= link_to 'My page', current_user %></li> 
-        <li>Log-out</li>
-      <ul>
+      <% if user_signed_in? %>
+        <ul>
+          <li><%= link_to 'Books', books_path %></li>
+          <li><%= link_to 'Users', users_path %></li>
+          <li><%= link_to 'My page', current_user %></li>
+          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %></li>
+        <ul>
+      <% end %>
     </header>
     <%= yield %>
   </body>
