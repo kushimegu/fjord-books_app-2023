@@ -1,7 +1,7 @@
 <% @users.each do |user| %>
   <p>
     <%= user.name %>
-    <%= link_to "Show this user", user %>
+    <%= link_to t('views.common.show', name: User.model_name.human.downcase), user %>
   </p>
 <% end %>
 <%= paginate @users %>

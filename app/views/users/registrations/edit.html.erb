@@ -1,25 +1,25 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h2><%= t('views.common.title_edit', name: User.model_name.human.downcase) %></h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "users/shared/error_messages", resource: resource %>
 
   <div>
-    <%= f.label :name, style: "display: block" %>
+    <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
 
   <div>
-    <%= f.label :postal_code, style: "display: block" %>
+    <%= f.label :postal_code %><br />
     <%= f.text_field :postal_code %>
   </div>
 
   <div>
-    <%= f.label :address, style: "display: block" %>
+    <%= f.label :address %><br />
     <%= f.text_field :address %>
   </div>
 
   <div>
-    <%= f.label :bio, style: "display: block" %>
+    <%= f.label :bio %><br />
     <%= f.text_area :bio %>
   </div>
 
@@ -33,11 +33,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.label :password %> <i><%= t('views.common.leave_blank_if_no_change') %></i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
+      <em><%= @minimum_password_length %> <%= t('views.common.minimum_characters') %></em>
     <% end %>
   </div>
 
@@ -47,12 +47,12 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Update" %>
+    <%= f.submit %>
   </div>
 <% end %>
 
-<h3>Cancel my account</h3>
+<h3><%= t('views.common.cancel_account') %></h3>
 
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
+<div><%= t('views.common.unhappy') %><%= button_to t('views.common.cancel_account'), registration_path(resource_name), data: { confirm: t('views.common.delete_confirm'), turbo_confirm: t('views.common.delete_confirm') }, method: :delete %></div>
 
-<%= link_to "Back", :back %>
+<%= link_to t('views.common.back', name: i18n_pluralize(User.model_name.human.downcase)), :back %>

@@ -1,13 +1,13 @@
-<h3>名前</h3>
+<h3><%= User.human_attribute_name("name") %></h3>
 <%= @user.name %>
-<h3>メールアドレス</h3>
+<h3><%= User.human_attribute_name("email") %></h3>
 <%= @user.email %>
-<h3>自己紹介</h3>
+<h3><%= User.human_attribute_name("bio") %></h3>
 <%= @user.bio %>
 <% if @user == current_user %>
-  <h3>郵便番号</h3>
+  <h3><%= User.human_attribute_name("postal_code") %></h3>
   <%= @user.postal_code %>
-  <h3>住所</h3>
+  <h3><%= User.human_attribute_name("address") %></h3>
   <%= @user.address %>
-  <%= link_to 'Edit', edit_user_registration_path(current_user) %>
+  <%= link_to t('views.common.title_edit', name: User.model_name.human.downcase), edit_user_registration_path(current_user) %>
 <% end %>

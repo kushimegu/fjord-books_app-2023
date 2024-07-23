@@ -194,6 +194,15 @@ ja:
       title_edit: "%{name}の編集"
       error: エラー
       validation_error: "%{errors}があるため、この%{name}は保存できませんでした"
+      leave_blank_if_no_change: "変更しない場合は空欄のままにしてください"
+      minimum_characters: "文字以上"
+      cancel_account: "アカウントを削除する"
+      unhappy: "本当に？"
+      my_page: "マイページ"
+      login: "ログイン"
+      logout: "ログアウト"
+      sign_up: "登録する"
+      forgot_password: "パスワードを忘れた"
     pagination:
       first: '« 最初'
       last: '最後 »'

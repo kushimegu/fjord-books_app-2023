@@ -15,10 +15,10 @@
       <h1>BooksApp</h1>
       <% if user_signed_in? %>
         <ul>
-          <li><%= link_to 'Books', books_path %></li>
-          <li><%= link_to 'Users', users_path %></li>
-          <li><%= link_to 'My page', current_user %></li>
-          <li><%= link_to 'Logout', destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %></li>
+          <li><%= link_to t('views.common.title_index', name: i18n_pluralize(Book.model_name.human)), books_path %></li>
+          <li><%= link_to t('views.common.title_index', name: i18n_pluralize(User.model_name.human)), users_path %></li>
+          <li><%= link_to t('views.common.my_page'), current_user %></li>
+          <li><%= link_to t('views.common.logout'), destroy_user_session_path, method: :delete, data: { turbo_method: :delete } %></li>
         <ul>
       <% end %>
     </header>
