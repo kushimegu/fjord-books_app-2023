@@ -11,6 +11,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user_path(resource)
   end
 
+  def after_destroy_path_for(resource)
+    new_registration_path
+  end
+
   # GET /resource/sign_up
   def new
     @user = User.new
