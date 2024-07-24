@@ -319,3 +319,22 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
   background-color: var(--global-primary-c-hover);
 }
+/****************
+Header
+****************/
+ul {
+  list-style: none;
+}
+
+.header__flex {
+  display: flex;
+  align-items: center;
+}
+
+.header__flex ul{
+  display: flex;
+}
+
+.header__flex ul li{
+  margin-left: 20px;
+}
