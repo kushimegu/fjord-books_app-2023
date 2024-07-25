@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
-
   protected
-  def after_sign_up_path_for(resource)
+
+  def after_sign_up_path_for(_resource)
     books_path
   end
 
@@ -11,7 +11,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     user_path(resource)
   end
 
-  def update_resource(resource, params)
+  def update_resource(_resource, params)
     resource.update_without_current_password(params)
   end
 end

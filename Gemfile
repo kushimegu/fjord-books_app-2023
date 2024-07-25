@@ -85,5 +85,5 @@ end
 gem 'carrierwave'
 gem 'kaminari'
 
-gem "devise", "~> 4.9"
+gem 'devise', '~> 4.9'
 gem 'devise-i18n'
