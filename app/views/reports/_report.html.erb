@@ -9,4 +9,8 @@
     <%= report.content %>
   </p>
 
+  <p>
+    <strong><%= Report.human_attribute_name(:created_at) %>:</strong>
+    <%= report.created_at.to_s(:datetime_jp) %>
+  </p>
 </div>
