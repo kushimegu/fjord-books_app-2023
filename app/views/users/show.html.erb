@@ -4,12 +4,10 @@
 <%= @user.email %>
 <h3><%= User.human_attribute_name("bio") %></h3>
 <%= @user.bio %>
-<% if @user == current_user %>
-  <h3><%= User.human_attribute_name("postal_code") %></h3>
-  <%= @user.postal_code %>
-  <h3><%= User.human_attribute_name("address") %></h3>
-  <%= @user.address %>
-  <nav class="page-nav">
-  <%= link_to t('views.common.title_edit', name: User.model_name.human.downcase), edit_user_registration_path(current_user) %>
-  </nav>
-<% end %>
+<h3><%= User.human_attribute_name("postal_code") %></h3>
+<%= @user.postal_code %>
+<h3><%= User.human_attribute_name("address") %></h3>
+<%= @user.address %>
+<nav class="page-nav">
+<%= link_to t('views.common.title_edit', name: User.model_name.human.downcase), edit_user_registration_path(current_user) %>
+</nav>
