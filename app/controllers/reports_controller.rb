@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
   before_action :validate_user, only: %i[edit update destroy]
@@ -72,8 +74,8 @@ class ReportsController < ApplicationController
   end
 
   def validate_user
-    if @report.user_id != current_user
-      redirect_to @report
-    end
+    return unless @comment.user_id != current_user
+
+    redirect_to @comment
   end
 end

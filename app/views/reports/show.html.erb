@@ -12,7 +12,7 @@
 <nav class="page-nav">
   <% if current_user.id == @report.user_id %>
     <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
-  <% end%>
+  <% end %>
   <%= link_to t('views.common.back', name: i18n_pluralize(Report.model_name.human.downcase)), reports_path %>
   <% if current_user.id == @report.user_id %>
     <%= button_to t('views.common.destroy', name: Report.model_name.human.downcase), @report, method: :delete %>

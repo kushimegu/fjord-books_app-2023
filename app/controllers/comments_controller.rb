@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   before_action :validate_user, only: %i[destroy]
 
@@ -7,7 +9,9 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
+        format.html do
+          redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
+        end
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -21,7 +25,9 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human) }
+      format.html do
+        redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
+      end
       format.json { head :no_content }
     end
   end
@@ -34,16 +40,14 @@ class CommentsController < ApplicationController
 
   def find_commentable
     params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return $1.classify.constantize.find(value)
-      end
+      return ::Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
     nil
   end
 
   def validate_user
-    if @comment.user_id != current_user
-      redirect_to @comment
-    end
+    return unless @comment.user_id != current_user
+
+    redirect_to @comment
   end
 end
