@@ -32,16 +32,12 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
   <div class="field">
-    <%= f.label :password %> <i><%= t('views.common.leave_blank_if_no_change') %></i><br />
+    <%= f.label :password %> <i><%= t('devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it') %></i><br />
     <%= f.password_field :password, autocomplete: "new-password" %>
     <% if @minimum_password_length %>
       <br />
-      <em><%= @minimum_password_length %> <%= t('views.common.minimum_characters') %></em>
+      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
     <% end %>
   </div>
 
@@ -55,8 +51,8 @@
   </div>
 <% end %>
 
-<h3><%= t('views.common.cancel_account') %></h3>
+<h3><%= t('devise.registrations.edit.cancel_my_account') %></h3>
 
-<div><%= t('views.common.unhappy') %><%= button_to t('views.common.cancel_account'), registration_path(resource_name), data: { confirm: t('views.common.delete_confirm'), turbo_confirm: t('views.common.delete_confirm') }, method: :delete %></div>
+<div><%= t('devise.registrations.edit.unhappy') %><%= button_to t('devise.registrations.edit.cancel_my_account'), registration_path(resource_name), data: { confirm: t('devise.registrations.edit.are_you_sure'), turbo_confirm: t('devise.registrations.edit.are_you_sure') }, method: :delete %></div>
 
-<%= link_to t('views.common.back', name: i18n_pluralize(User.model_name.human.downcase)), :back %>
+<%= link_to t('devise.shared.links.back'), :back %>
