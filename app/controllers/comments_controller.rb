@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy]
+  before_action :validate_user, only: %i[destroy]
 
   def create
     @commentable = find_commentable
@@ -39,5 +40,11 @@ class CommentsController < ApplicationController
       end
     end
     nil
+  end
+
+  def validate_user
+    if @comment.user_id != current_user
+      redirect_to @comment
+    end
   end
 end

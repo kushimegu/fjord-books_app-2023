@@ -5,11 +5,11 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
-  <div class="mb-3">
+  <div>
     <%= form.label :content %>
-    <%= form.text_area :content, class: 'form-control', id: 'js-new-comment-body' %>
+    <%= form.text_area :content %>
   </div>
-  <div class="text-end">
-    <%= form.submit class: 'btn btn-primary btn-sm' %>
+  <div>
+    <%= form.submit %>
   </div>
 <% end %>

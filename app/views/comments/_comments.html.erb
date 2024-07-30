@@ -4,9 +4,19 @@
   <% @comments.each do |comment| %>
     <div class="index-item">
       <%= comment.content %>
-    </div>
+    <p>
+    <% if comment.user.name.empty? %>
+      <%= comment.user.email %>
+    <% else %>
+      <%= comment.user.name %>
+    <% end %>
+    </p>
+    <p>
+      <%= comment.created_at.to_s(:datetime_jp) %>
+    </p>
     <% if current_user.id == comment.user_id %>
       <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([comment.commentable, comment]), method: :delete %>
     <% end %>
+    </div>
   <% end %>
 </div>
