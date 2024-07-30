@@ -1,0 +1,12 @@
+<h1><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h1>
+
+<div id="comments" class="index-items">
+  <% @comments.each do |comment| %>
+    <div class="index-item">
+      <%= comment.content %>
+    </div>
+    <% if current_user.id == comment.user_id %>
+      <%= button_to t('views.common.destroy', name: Comment.model_name.human.downcase), polymorphic_path([comment.commentable, comment]), method: :delete %>
+    <% end %>
+  <% end %>
+</div>

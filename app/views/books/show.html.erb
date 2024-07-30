@@ -4,6 +4,11 @@
   <%= render @book %>
 </div>
 
+<h2 class="mt-3">コメントフォーム</h2>
+<%= render 'comments/form', { commentable: @book, comment: @comment } %>
+<br>
+<%= render 'comments/comments', { comments: @comments } %>
+
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Book.model_name.human.downcase), edit_book_path(@book) %> |
   <%= link_to t('views.common.back', name: i18n_pluralize(Book.model_name.human.downcase)), books_path %>

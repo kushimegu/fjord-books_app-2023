@@ -4,6 +4,11 @@
   <%= render @report %>
 </div>
 
+<h2 class="mt-3">コメントフォーム</h2>
+<%= render 'comments/form', { commentable: @report, comment: @comment } %>
+<br>
+<%= render 'comments/comments', { comments: @comments } %>
+
 <nav class="page-nav">
   <% if current_user.id == @report.user_id %>
     <%= link_to t('views.common.edit', name: Report.model_name.human.downcase), edit_report_path(@report) %> |
