@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create destroy]
   before_action :validate_user, only: %i[destroy]
 
   def create
