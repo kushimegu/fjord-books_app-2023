@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  before_action :validate_user, only: %i[destroy]
 
   def create
     @commentable = find_commentable
@@ -43,11 +42,5 @@ class CommentsController < ApplicationController
       return ::Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
     nil
-  end
-
-  def validate_user
-    return unless @comment.user_id != current_user
-
-    redirect_to @comment
   end
 end

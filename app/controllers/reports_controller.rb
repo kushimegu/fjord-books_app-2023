@@ -74,8 +74,8 @@ class ReportsController < ApplicationController
   end
 
   def validate_user
-    return unless @comment.user_id != current_user
+    return if @report && @report.user_id == current_user.id
 
-    redirect_to @comment
+    redirect_to @report
   end
 end
