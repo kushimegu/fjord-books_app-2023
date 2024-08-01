@@ -25,7 +25,8 @@ class ReportsController < ApplicationController
 
   # POST /reports or /reports.json
   def create
-    @report = current_user.reports.build(report_params)
+    @report = Report.new(report_params)
+    @report.user_id = current_user.id
 
     respond_to do |format|
       if @report.save
@@ -74,8 +75,8 @@ class ReportsController < ApplicationController
   end
 
   def validate_user
-    return if @report && @report.user_id == current_user.id
+    return if @report.user_id == current_user.id
 
-    redirect_to @report
+    redirect_to reports_path
   end
 end
