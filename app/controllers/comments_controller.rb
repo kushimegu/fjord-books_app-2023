@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  before_action :set_comment, only: %i[destroy]
 
   def create
     @commentable = find_commentable
     @comment = @commentable.comments.build(comment_params)
+    @comment.user = current_user
 
     respond_to do |format|
       if @comment.save
@@ -20,7 +22,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = current_user.comments.find(params[:id])
     @comment.destroy
 
     respond_to do |format|
@@ -34,7 +35,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content).merge(user_id: current_user.id)
+    params.require(:comment).permit(:content)
   end
 
   def find_commentable
@@ -42,5 +43,9 @@ class CommentsController < ApplicationController
       return ::Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
     end
     nil
+  end
+
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
   end
 end
