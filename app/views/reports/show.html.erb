@@ -4,7 +4,7 @@
   <%= render @report %>
 </div>
 
-<h2 class="mt-3">コメントフォーム</h2>
+<h2><%= t('views.common.form', name: Comment.model_name.human) %></h2>
 <%= render 'comments/form', { commentable: @report, comment: @comment } %>
 <br>
 <%= render 'comments/comments', { comments: @comments } %>
