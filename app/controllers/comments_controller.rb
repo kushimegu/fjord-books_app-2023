@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[destroy]
 
   def create
-    @commentable = find_commentable
     @comment = @commentable.comments.build(comment_params)
     @comment.user = current_user
 
@@ -36,13 +35,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
-  end
-
-  def find_commentable
-    params.each do |name, value|
-      return ::Regexp.last_match(1).classify.constantize.find(value) if name =~ /(.+)_id$/
-    end
-    nil
   end
 
   def set_comment

@@ -1,15 +1,10 @@
-<%= form_with model: [commentable, comment], local: false, id: "#{dom_id(comment)}_form" do |form| %>
-  <% commentable.errors.full_messages.each do |message| %>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <%= message %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <% end %>
+<%= form_with model: [commentable, comment] do |f| %>
   <div>
-    <%= form.label :content %>
-    <%= form.text_area :content, required: true %>
+    <%= f.label :content %>
+    <%= f.text_area :content, required: true %>
   </div>
+
   <div>
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>
