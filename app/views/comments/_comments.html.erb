@@ -5,7 +5,9 @@
     <div class="index-item">
       <%= comment.content %>
     <p>
-    <% if comment.user.name.empty? %>
+    <% if comment.user.nil? %>
+      <%= t('views.common.deleted_user') %>
+    <% elsif comment.user.name.empty? %>
       <%= comment.user.email %>
     <% else %>
       <%= comment.user.name %>
