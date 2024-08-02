@@ -9,12 +9,11 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html do
-          redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_create', name: Comment.model_name.human)
-        end
+        format.html { redirect_to @commentable, notice: t('controllers.common.notice_create', name: Comment.model_name.human) }
         format.json { render :show, status: :created, location: @comment }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        @comments = @commentable.comments.preload(:user).order(created_at: :desc)
+        format.html { render_commentable }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -24,9 +23,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html do
-        redirect_to polymorphic_path([@comment.commentable, @comment]), notice: t('controllers.common.notice_destroy', name: Comment.model_name.human)
-      end
+      format.html { redirect_to @commentable, notice: t('controllers.common.notice_destroy', name: Comment.model_name.human) }
       format.json { head :no_content }
     end
   end
