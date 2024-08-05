@@ -9,5 +9,5 @@
 <h3><%= User.human_attribute_name("address") %></h3>
 <%= @user.address %>
 <nav class="page-nav">
-<%= link_to t('views.common.title_edit', name: User.model_name.human.downcase), edit_user_registration_path(current_user) %>
+<%= link_to t('views.common.title_edit', name: User.model_name.human.downcase), edit_user_registration_path %>
 </nav>
