@@ -198,6 +198,7 @@ ja:
       sign_out: ログアウト
       form: "%{name}フォーム"
       deleted_user: 退会したユーザ
+      no_comment: コメントはありません
     pagination:
       first: '« 最初'
       last: '最後 »'

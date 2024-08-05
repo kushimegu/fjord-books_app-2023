@@ -1,16 +1,17 @@
 <h1><%= t('views.common.title_index', name: i18n_pluralize(Comment.model_name.human)) %></h1>
 
 <div id="comments" class="index-items">
+  <% if @comments.empty? %>
+    <%= t('views.common.no_comment') %>
+  <% end %>
   <% @comments.each do |comment| %>
     <div class="index-item">
       <%= comment.content %>
     <p>
     <% if comment.user.nil? %>
       <%= t('views.common.deleted_user') %>
-    <% elsif comment.user.name.empty? %>
-      <%= comment.user.email %>
     <% else %>
-      <%= comment.user.name %>
+      <%= comment.user.name.presence || comment.user.email %>
     <% end %>
     </p>
     <p>
