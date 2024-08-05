@@ -7,7 +7,7 @@
 <h2><%= t('views.common.form', name: Comment.model_name.human) %></h2>
 <%= render 'comments/form', { commentable: @report, comment: @comment } %>
 <br>
-<%= render 'comments/comments', { comments: @comments } %>
+<%= render 'comments/comments' %>
 
 <nav class="page-nav">
   <% if current_user.id == @report.user_id %>

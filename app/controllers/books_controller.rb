@@ -11,7 +11,7 @@ class BooksController < ApplicationController
   # GET /books/1 or /books/1.json
   def show
     @comment = Comment.new
-    @comments = @book.comments.preload(:user).order(created_at: :desc)
+    @comments = @book.comments.preload(:user).order(:created_at)
   end
 
   # GET /books/new

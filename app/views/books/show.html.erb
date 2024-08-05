@@ -1,13 +1,13 @@
 <h1><%= t('views.common.title_show', name: Book.model_name.human) %></h1>
 
 <div class="show-item">
-  <%= render @book %>
+  <%= render 'books/book', book: @book %>
 </div>
 
 <h2><%= t('views.common.form', name: Comment.model_name.human) %></h2>
 <%= render 'comments/form', { commentable: @book, comment: @comment } %>
 <br />
-<%= render 'comments/comments', { comments: @comments } %>
+<%= render 'comments/comments' %>
 
 <nav class="page-nav">
   <%= link_to t('views.common.edit', name: Book.model_name.human.downcase), edit_book_path(@book) %> |
