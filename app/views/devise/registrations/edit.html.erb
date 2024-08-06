@@ -12,6 +12,12 @@
     <div><%= t('.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
   <% end %>
 
+  <% if resource.avatar.attached? %>
+  <p>
+    <%= image_tag resource.avatar.variant(resize_to_limit: [300, 300]) %>
+  </p>
+  <% end %>
+
   <%= render 'devise/registrations/profile_fields', f: f %>
 
   <div class="field">
