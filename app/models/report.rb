@@ -5,8 +5,8 @@ class Report < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :active_relationships, class_name: "MentionRelationship", foreign_key: "mentioning_id", dependent: :destroy
-  has_many :passive_relationships, class_name: "MentionRelationship", foreign_key: "mentioned_id", dependent: :destroy
   has_many :mentioning_reports, through: :active_relationships, source: :mentioned
+  has_many :passive_relationships, class_name: "MentionRelationship", foreign_key: "mentioned_id", dependent: :destroy
   has_many :mentioned_reports, through: :passive_relationships, source: :mentioning
 
   validates :title, presence: true
@@ -20,27 +20,53 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
+  def self.bulk_create(report, report_params)
+    all_valid = true
+    Report.transaction do
+      report.create_mentions_from_urls(report_params[:content])
+      all_valid &= report.save
+
+      unless all_valid
+        raise ActiveRecord::Rollback
+      end
+    end
+    all_valid
+  end
+
+  def self.bulk_update(report, report_params)
+    all_valid = true
+    Report.transaction do
+      report.create_mentions_from_urls(report_params[:content])
+      all_valid &= report.update(report_params)
+
+      unless all_valid
+        raise ActiveRecord::Rollback
+      end
+    end
+    all_valid
+  end
+
+  def create_mentions_from_urls(text)
+    current_mention_ids = mentioning_reports.pluck(:id)
+    urls = URI.extract(text, ['http', 'https']).uniq
+    ids = urls.map { |url| url.match(/reports\/(\d+)/)[1] }
+    ids.each do |id|
+      mention(id) unless mentioning?(id) || id.to_i == self.id
+    end
+    (current_mention_ids - ids.map(&:to_i)).each do |id|
+      remove_mention(id)
+    end
+  end
+
   def mention(id)
     active_relationships.create(mentioned_id: id)
   end
 
+  def mentioning?(id)
+    mentioning_reports.exists?(id)
+  end
+
   def remove_mention(id)
     active_relationships.find_by(mentioned_id: id).destroy
-  end
-
-  def mentioning?(id)
-    mentioning_reports.include?(id)
-  end
-
-  def create_mentions_from_urls(text)
-    current_mentions = mentioning_reports.pluck(:id)
-    urls = URI.extract(text, ['http', 'https']).uniq
-    ids = urls.map { |url| url.match(/reports\/(\d+)/)[1] }.uniq
-    ids.each do |id|
-      mention(id) unless mentioning?(id) || id.to_i == self.id
-    end
-    (current_mentions - ids.map(&:to_i)).each do |id|
-      remove_mention(id)
-    end
   end
 end
