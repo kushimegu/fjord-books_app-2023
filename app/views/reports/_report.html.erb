@@ -6,7 +6,7 @@
 
   <p>
     <strong><%= Report.human_attribute_name(:content) %>:</strong>
-    <%= text_url_to_links(h(report.content)).gsub("\n", "<br>").html_safe %>
+    <%= convert_url_to_link(h(report.content)).gsub("\n", "<br>").html_safe %>
   </p>
 
   <p>

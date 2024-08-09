@@ -19,7 +19,7 @@ module ApplicationHelper
     safe_join(content.split("\n"), tag.br)
   end
 
-  def text_url_to_links(text)
+  def convert_url_to_link(text)
     URI.extract(text, 'http').uniq.each do |url|
       link = "<a href=#{url}>#{url}</a>"
       text.gsub!(url, link)
