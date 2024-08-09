@@ -20,11 +20,11 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def self.bulk_create(report, report_params)
+  def create_with_mentions(report_params)
     all_valid = true
-    Report.transaction do
-      report.create_mentions_from_urls(report_params[:content])
-      all_valid &= report.save
+    transaction do
+      all_valid &= save
+      create_mentions_from_urls(report_params[:content]) if all_valid
 
       unless all_valid
         raise ActiveRecord::Rollback
@@ -33,11 +33,11 @@ class Report < ApplicationRecord
     all_valid
   end
 
-  def self.bulk_update(report, report_params)
+  def update_with_mentions(report_params)
     all_valid = true
-    Report.transaction do
-      report.create_mentions_from_urls(report_params[:content])
-      all_valid &= report.update(report_params)
+    transaction do
+      all_valid &= update(report_params)
+      create_mentions_from_urls(report_params[:content]) if all_valid
 
       unless all_valid
         raise ActiveRecord::Rollback
