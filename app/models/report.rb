@@ -4,9 +4,9 @@ class Report < ApplicationRecord
   belongs_to :user
   has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :active_relationships, class_name: "MentionRelationship", foreign_key: "mentioning_id", dependent: :destroy
+  has_many :active_relationships, class_name: 'MentionRelationship', foreign_key: 'mentioning_id', dependent: :destroy, inverse_of: :mentioning
   has_many :mentioning_reports, through: :active_relationships, source: :mentioned
-  has_many :passive_relationships, class_name: "MentionRelationship", foreign_key: "mentioned_id", dependent: :destroy
+  has_many :passive_relationships, class_name: 'MentionRelationship', foreign_key: 'mentioned_id', dependent: :destroy, inverse_of: :mentioned
   has_many :mentioned_reports, through: :passive_relationships, source: :mentioning
 
   validates :title, presence: true
@@ -26,9 +26,7 @@ class Report < ApplicationRecord
       all_valid &= save
       create_mentions_from_urls(report_params[:content]) if all_valid
 
-      unless all_valid
-        raise ActiveRecord::Rollback
-      end
+      raise ActiveRecord::Rollback unless all_valid
     end
     all_valid
   end
@@ -39,9 +37,7 @@ class Report < ApplicationRecord
       all_valid &= update(report_params)
       create_mentions_from_urls(report_params[:content]) if all_valid
 
-      unless all_valid
-        raise ActiveRecord::Rollback
-      end
+      raise ActiveRecord::Rollback unless all_valid
     end
     all_valid
   end
@@ -49,7 +45,7 @@ class Report < ApplicationRecord
   def create_mentions_from_urls(text)
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
-    ids = urls.map { |url| url.match(/reports\/(\d+)/)[1] }
+    ids = urls.map { |url| url.match(%r{reports/(\d+)})[1] }
     ids.each do |id|
       mention(id) unless mentioning?(id) || id.to_i == self.id
     end
