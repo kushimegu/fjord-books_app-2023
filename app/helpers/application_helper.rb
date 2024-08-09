@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def text_url_to_links(text)
-    URI.extract(text, ['http', 'https']).uniq.each do |url|
+    URI.extract(text, 'http').uniq.each do |url|
       link = "<a href=#{url}>#{url}</a>"
       text.gsub!(url, link)
     end
