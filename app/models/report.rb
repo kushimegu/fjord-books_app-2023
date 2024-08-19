@@ -45,9 +45,12 @@ class Report < ApplicationRecord
   def create_mentions_from_urls(text)
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
-    ids = urls.map { |url| url.match(%r{reports/(\d+)})[1] }
+    ids = urls.map do |url|
+      match_data = url.match(%r{\Ahttp://localhost:3000/reports/(\d+)\z})
+      match_data ? match_data[1] : nil
+    end.compact
     ids.each do |id|
-      mention(id) unless mentioning?(id) || id.to_i == self.id
+      mention(id) if !mentioning?(id) && id.to_i != self.id
     end
     (current_mention_ids - ids.map(&:to_i)).each do |id|
       remove_mention(id)

@@ -20,9 +20,12 @@ module ApplicationHelper
   end
 
   def convert_url_to_link(text)
+    pattern = %r{\Ahttp://localhost:3000/reports/\d+\z}
     URI.extract(text, 'http').uniq.each do |url|
-      link = "<a href=#{url}>#{url}</a>"
-      text.gsub!(url, link)
+      if url.match?(pattern)
+        link = "<a href=#{url}>#{url}</a>"
+        text.gsub!(url, link)
+      end
     end
     text
   end
