@@ -21,10 +21,10 @@ class Report < ApplicationRecord
   end
 
   def create_with_mentions(report_params)
-    all_valid = true
+    all_valid = false
     transaction do
-      all_valid &= save
-      create_mentions_from_urls(report_params[:content]) if all_valid
+      all_valid = save
+      all_valid &= create_mentions_from_urls(report_params[:content])
 
       raise ActiveRecord::Rollback unless all_valid
     end
@@ -34,8 +34,8 @@ class Report < ApplicationRecord
   def update_with_mentions(report_params)
     all_valid = true
     transaction do
-      all_valid &= update(report_params)
-      create_mentions_from_urls(report_params[:content]) if all_valid
+      all_valid = update(report_params)
+      all_valid &= create_mentions_from_urls(report_params[:content])
 
       raise ActiveRecord::Rollback unless all_valid
     end
@@ -43,19 +43,21 @@ class Report < ApplicationRecord
   end
 
   def create_mentions_from_urls(text)
+    all_valid = true
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
     ids = urls.map do |url|
       match_url = url.match(%r{\Ahttp://localhost:3000/reports/(\d+)\z})
       match_url ? match_url[1] : nil
     end.compact
-    existing_mention_ids = mentioning_reports.where(mentioning_id: ids).pluck(:id)
+    existing_mention_ids = mentioning_reports.where(id: ids).pluck(:id)
     ids.each do |id|
-      mention(id) if !existing_mention_ids.include?(id) && id.to_i != self.id
+      all_valid &= mention(id) if !existing_mention_ids.include?(id) && id.to_i != self.id
     end
     (current_mention_ids - ids.map(&:to_i)).each do |id|
-      remove_mention(id)
+      all_valid &= remove_mention(id)
     end
+    all_valid
   end
 
   def mention(id)
