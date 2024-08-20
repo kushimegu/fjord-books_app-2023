@@ -46,11 +46,12 @@ class Report < ApplicationRecord
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
     ids = urls.map do |url|
-      match_data = url.match(%r{\Ahttp://localhost:3000/reports/(\d+)\z})
-      match_data ? match_data[1] : nil
+      match_url = url.match(%r{\Ahttp://localhost:3000/reports/(\d+)\z})
+      match_url ? match_url[1] : nil
     end.compact
+    existing_mention_ids = mentioning_reports.where(mentioning_id: ids).pluck(:id)
     ids.each do |id|
-      mention(id) if !mentioning?(id) && id.to_i != self.id
+      mention(id) if !existing_mention_ids.include?(id) && id.to_i != self.id
     end
     (current_mention_ids - ids.map(&:to_i)).each do |id|
       remove_mention(id)
@@ -59,10 +60,6 @@ class Report < ApplicationRecord
 
   def mention(id)
     active_relationships.create(mentioned_id: id)
-  end
-
-  def mentioning?(id)
-    mentioning_reports.exists?(id)
   end
 
   def remove_mention(id)
