@@ -32,7 +32,6 @@ class Report < ApplicationRecord
   end
 
   def create_mentions_from_urls(text)
-    all_valid = true
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
     ids = urls.map do |url|
@@ -43,7 +42,7 @@ class Report < ApplicationRecord
     all_valid = ids.all? do |id|
       create_mention_to(id) if !existing_mention_ids.include?(id) && id != self.id
     end
-    all_valid = (current_mention_ids - ids.map(&:to_i)).all? do |id|
+    all_valid &= (current_mention_ids - ids.map(&:to_i)).all? do |id|
       remove_mention(id)
     end
     all_valid
