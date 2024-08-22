@@ -20,21 +20,10 @@ class Report < ApplicationRecord
     created_at.to_date
   end
 
-  def create_with_mentions(report_params)
+  def save_with_mentions(report_params)
     all_valid = false
     transaction do
       all_valid = save
-      all_valid &= create_mentions_from_urls(report_params[:content])
-
-      raise ActiveRecord::Rollback unless all_valid
-    end
-    all_valid
-  end
-
-  def update_with_mentions(report_params)
-    all_valid = true
-    transaction do
-      all_valid = update(report_params)
       all_valid &= create_mentions_from_urls(report_params[:content])
 
       raise ActiveRecord::Rollback unless all_valid
