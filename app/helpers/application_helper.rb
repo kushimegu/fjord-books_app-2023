@@ -20,9 +20,8 @@ module ApplicationHelper
   end
 
   def convert_url_to_link(text)
-    pattern = REPORT_URL_REGEX
     URI.extract(text, 'http').uniq.each do |url|
-      if url.match?(pattern)
+      if url.match?(Report::REPORT_URL_REGEX)
         link = "<a href=#{url}>#{url}</a>"
         text.gsub!(url, link)
       end

@@ -31,6 +31,8 @@ class Report < ApplicationRecord
     all_valid
   end
 
+  REPORT_URL_REGEX = %r{\Ahttp://localhost:3000/reports/(\d+)\z}
+
   def create_mentions_from_urls(text)
     current_mention_ids = mentioning_reports.pluck(:id)
     urls = URI.extract(text, 'http').uniq
