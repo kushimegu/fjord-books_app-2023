@@ -42,7 +42,8 @@ class Report < ApplicationRecord
     end.compact
     existing_mention_ids = mentioning_reports.where(id: ids).pluck(:id)
     all_valid = ids.all? do |id|
-      create_mention_to(id) if !existing_mention_ids.include?(id) && id != self.id
+      next true if existing_mention_ids.include?(id) || id == self.id
+      create_mention_to(id)
     end
     all_valid &= (current_mention_ids - ids.map(&:to_i)).all? do |id|
       remove_mention(id)
@@ -51,7 +52,8 @@ class Report < ApplicationRecord
   end
 
   def create_mention_to(id)
-    active_relationships.create(mentioned_id: id)
+    report = Report.find(id)
+    active_relationships.create(mentioned_id: report.id)
   end
 
   def remove_mention(id)
