@@ -18,14 +18,4 @@ module ApplicationHelper
   def format_content(content)
     safe_join(content.split("\n"), tag.br)
   end
-
-  def convert_url_to_link(text)
-    URI.extract(text, 'http').uniq.each do |url|
-      if url.match?(Report::REPORT_URL_REGEX)
-        link = "<a href=#{url}>#{url}</a>"
-        text.gsub!(url, link)
-      end
-    end
-    text
-  end
 end
