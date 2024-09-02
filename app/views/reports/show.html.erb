@@ -3,6 +3,14 @@
 <div class="show-item">
   <%= render @report %>
 </div>
+<p>
+  <strong><%= t('views.common.mentioned', name: Report.model_name.human) %>:</strong>
+</p>
+<% @report.mentioned_reports.each do |report| %>
+  <p>
+    <%= link_to report.title, report %>
+  </p>
+<% end %>
 
 <%= render 'shared/comments', commentable: @report %>
 
