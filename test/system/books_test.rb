@@ -7,7 +7,7 @@ class BooksTest < ApplicationSystemTestCase
     @book = books(:rails)
 
     visit root_url
-    assert_css 'h2', text: 'ログイン'
+    assert_selector 'h2', text: 'ログイン'
     fill_in 'Eメール', with: 'alice@example.com'
     fill_in 'パスワード', with: 'password'
     click_button 'ログイン'
@@ -18,6 +18,18 @@ class BooksTest < ApplicationSystemTestCase
     visit books_url
 
     assert_selector 'h1', text: '本の一覧'
+  end
+
+  test 'should show book with comment' do 
+    visit book_url(@book)
+
+    assert_selector 'h1', text: '本の詳細'
+    assert_text 'パーフェクトRuby on Rails'
+    assert_text '難しい'
+    assert_text 'すがわらまさのり'
+
+    assert_text '勉強になった'
+    assert_text 'alice@example.com'
   end
 
   test 'should create book' do
@@ -52,7 +64,7 @@ class BooksTest < ApplicationSystemTestCase
 
   test 'should destroy Book' do
     visit book_url(@book)
-    click_on '削除', match: :first
+    click_on 'この本を削除', match: :first
 
     assert_text '本が削除されました。'
   end
