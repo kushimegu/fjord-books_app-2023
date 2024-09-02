@@ -177,7 +177,7 @@ ja:
   time:
     am: 午前
     formats:
-      default: "%Y年%m月%d日(%a) %H時%M分%S秒 %z"
+      default: "%Y/%m/%d %H:%M:%S"
       long: "%Y/%m/%d %H:%M"
       short: "%m/%d %H:%M"
     pm: 午後
@@ -196,6 +196,9 @@ ja:
       validation_error: "%{errors}があるため、この%{name}は保存できませんでした"
       title_show: "%{name}の詳細"
       sign_out: ログアウト
+      form: "%{name}フォーム"
+      deleted_user: 退会したユーザ
+      no_comment: コメントはありません
     pagination:
       first: '« 最初'
       last: '最後 »'
