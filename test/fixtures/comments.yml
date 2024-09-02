@@ -3,11 +3,11 @@
 alice_comment:
   user: alice
   commentable: rails
-  commentable_type: Commentable
-  content: Railsについてに対するコメント
+  commentable_type: Book
+  content: 勉強になった
 
 bob_comment:
   user: bob
   commentable: alice_report
-  commentable_type: Commentable
-  content: aliceの日報に対するコメント
+  commentable_type: Report
+  content: よろしくお願いします
