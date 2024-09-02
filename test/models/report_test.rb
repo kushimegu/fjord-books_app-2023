@@ -8,7 +8,10 @@ class ReportTest < ActiveSupport::TestCase
     user = User.new
     report = Report.new(user: user)
 
-    assert_equal true, report.editable?(user)
+    assert true, report.editable?(user)
+
+    different_user = User.new
+    refute false, report.editable?(different_user)
   end
 
   test 'created_on' do
