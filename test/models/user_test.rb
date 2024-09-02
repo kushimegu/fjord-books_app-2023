@@ -11,5 +11,4 @@ class UserTest < ActiveSupport::TestCase
     user.name = 'Foo Bar'
     assert_equal 'Foo Bar', user.name_or_email
   end
-
 end

@@ -108,7 +108,7 @@ class ReportsTest < ApplicationSystemTestCase
     assert_text '日報機能の再提出'
     assert_text 'alice@example.com'
   end
-  
+
   test 'should destroy report without mention' do
     visit report_url(@mentioned_report)
     click_on 'この日報を削除'

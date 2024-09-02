@@ -21,7 +21,7 @@ class BooksTest < ApplicationSystemTestCase
     assert_selector 'h1', text: '本の一覧'
   end
 
-  test 'should show book with comment' do 
+  test 'should show book with comment' do
     visit book_url(@rails_book)
 
     assert_text 'パーフェクトRuby on Rails'
