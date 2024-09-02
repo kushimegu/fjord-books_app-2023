@@ -1,11 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-alice-report:
+alice_report:
   user: alice
-  title: aliceの日報
-  content: aliceの日報の内容
+  title: 初めての日報
+  content: よろしくおねがします。
+  created_at: 2024-08-30 17:17:06
 
-bob-report:
+bob_report:
   user: bob
-  title: bobの日報
-  content: bobの日報の内容
+  title: 初めまして
+  content: がんばります。

@@ -5,5 +5,5 @@
 # below each fixture, per the syntax in the comments below
 #
 between alice-report and bob-report:
-  mentioning: alice-report
-  mentioned: bob-report
+  mentioning: alice_report
+  mentioned: bob_report
