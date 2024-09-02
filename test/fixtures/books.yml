@@ -4,3 +4,8 @@ rails:
   title: パーフェクトRuby on Rails
   memo: 難しい
   author: すがわらまさのり
+
+git:
+  title: Git&GitHubの教本
+  memo: とてもわかりやすい
+  author: 宇賀神みずき

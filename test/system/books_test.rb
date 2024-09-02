@@ -4,10 +4,11 @@ require 'application_system_test_case'
 
 class BooksTest < ApplicationSystemTestCase
   setup do
-    @book = books(:rails)
+    @rails_book = books(:rails)
+    @git_book = books(:git)
 
     visit root_url
-    assert_selector 'h2', text: 'ログイン'
+
     fill_in 'Eメール', with: 'alice@example.com'
     fill_in 'パスワード', with: 'password'
     click_button 'ログイン'
@@ -21,15 +22,24 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'should show book with comment' do 
-    visit book_url(@book)
+    visit book_url(@rails_book)
 
-    assert_selector 'h1', text: '本の詳細'
     assert_text 'パーフェクトRuby on Rails'
     assert_text '難しい'
     assert_text 'すがわらまさのり'
 
     assert_text '勉強になった'
     assert_text 'alice@example.com'
+  end
+
+  test 'should show book without comment' do
+    visit book_url(@git_book)
+
+    assert_text 'Git&GitHubの教本'
+    assert_text 'とてもわかりやすい'
+    assert_text '宇賀神みずき'
+
+    assert_text 'コメントはまだありません'
   end
 
   test 'should create book' do
@@ -44,12 +54,12 @@ class BooksTest < ApplicationSystemTestCase
     assert_text '本が作成されました。'
     assert_text 'Ruby超入門'
     assert_text 'わかりやすい'
-    assert_text '五十嵐'
+    assert_text '五十嵐邦明'
   end
 
   test 'should update Book' do
-    visit book_url(@book)
-    click_on 'この本を編集', match: :first
+    visit book_url(@rails_book)
+    click_on 'この本を編集'
 
     fill_in 'タイトル', with: 'Ruby入門'
     fill_in 'メモ', with: '名著です'
@@ -63,9 +73,12 @@ class BooksTest < ApplicationSystemTestCase
   end
 
   test 'should destroy Book' do
-    visit book_url(@book)
-    click_on 'この本を削除', match: :first
+    visit book_url(@rails_book)
+    click_on 'この本を削除'
 
     assert_text '本が削除されました。'
+    refute_text 'パーフェクトRuby on Rails'
+    refute_text '難しい'
+    refute_text 'すがわらまさのり'
   end
 end
