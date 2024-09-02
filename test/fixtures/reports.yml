@@ -3,9 +3,14 @@
 alice_report:
   user: alice
   title: 初めての日報
-  content: よろしくおねがします
+  content: よろしくお願いします
+
+alice_second_report:
+  user: alice
+  title: 2回目の日報
+  content: 過去の日報のURL
 
 bob_report:
   user: bob
   title: 初めまして
-  content: 頑張ります
+  content: aliceの日報のURL

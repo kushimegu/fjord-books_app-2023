@@ -4,6 +4,6 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-between alice-report and bob-report:
-  mentioning: alice_report
-  mentioned: bob_report
+between alice_report and bob_report:
+  mentioning: bob_report
+  mentioned: alice_report

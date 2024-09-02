@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-alice_comment:
+comment_to_rails_book:
   user: alice
   commentable: rails
   commentable_type: Book
   content: 勉強になった
 
-bob_comment:
-  user: bob
+comment_to_alice_report:
+  user: carol
   commentable: alice_report
   commentable_type: Report
-  content: よろしくお願いします
+  content: こんにちは
