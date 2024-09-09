@@ -14,7 +14,7 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test 'created_on' do
-    report = Report.new(created_at: '2024-08-30 17:17:06'.to_time)
+    report = Report.new(created_at: Time.zone.parse('2024-08-30'))
     date = Date.new(2024, 8, 30)
 
     assert_equal date, report.created_on
