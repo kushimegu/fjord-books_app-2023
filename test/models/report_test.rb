@@ -26,6 +26,7 @@ class ReportTest < ActiveSupport::TestCase
     user = users(:alice)
     mentioning_report = user.reports.create!(title: '参考URL', content: "http://localhost:3000/reports/#{alice_mentioned_report.id}")
 
+    assert_includes mentioning_report.mentioning_reports, alice_mentioned_report
     assert_includes alice_mentioned_report.mentioned_reports, mentioning_report
 
     bob_mentioned_report = reports(:bob_report)
